@@ -19,6 +19,24 @@ findMajorityElement([1, 2, 3, 4, 5]); // Expected output: null
 
 */
 
-const findMajorityElement = (arr) => {};
+const findMajorityElement = (arr) => {
+    const ruleForMajority = Math.floor(arr.length / 2)
+
+    let counterOfEachNumber = {}
+    let result = null;
+
+    for (const number of arr) {
+        
+        counterOfEachNumber[number] = counterOfEachNumber[number] ? counterOfEachNumber[number] + 1 : counterOfEachNumber[number] = 1
+    }
+
+    for (let key in counterOfEachNumber) {
+        if (counterOfEachNumber[key] > ruleForMajority) {
+            result = parseInt(key)
+        }
+    }
+
+    return result
+};
 
 module.exports = findMajorityElement;

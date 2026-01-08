@@ -31,6 +31,43 @@ Requirements:
 
 */
 
-const factorialChain = (number, lastDigits) => {};
+const factorialChain = (number, lastDigits) => {
+
+    let result
+    let totalSumFactorial = 0
+
+
+    for (let i = 1; i <= number; i++) {
+        let currentFactorial = 1
+        for (let j = 1; j <= i; j++) {
+            currentFactorial*= j
+        }
+        totalSumFactorial+= currentFactorial
+        
+    }
+
+    let totalSumArray
+
+    if (lastDigits > totalSumFactorial.toString().length) {
+
+        totalSumArray = String(totalSumFactorial).split('')
+
+        let howManyZeros = lastDigits - totalSumArray.length 
+
+        for (let i = 0; i < howManyZeros; i++) {
+            totalSumArray.unshift('0')
+        }
+
+        result = totalSumArray.join('')
+
+    } else {
+        totalSumArray = String(totalSumFactorial).split('').slice(lastDigits * -1)
+
+        result = totalSumArray.join('')
+    }
+
+    return result
+};
+
 
 module.exports = factorialChain;
