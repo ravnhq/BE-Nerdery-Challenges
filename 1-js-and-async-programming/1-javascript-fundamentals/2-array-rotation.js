@@ -22,18 +22,12 @@ const rotateArray = (arr, n) => {
     let result = arr
 
     for (let i = 0; i < n; i++) {
-
-        //end to beginning
-        // let lastItem = result.pop()
-        // result.unshift(lastItem)
-
-        //beginning to end
+        
         let firstItem = result.shift()
         result.push(firstItem)
     }
 
     return result
 };
-
 
 module.exports = rotateArray;

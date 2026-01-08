@@ -19,17 +19,18 @@ timeDifference(7200, 3400); // Expected output: "01:03:20"
 const timeDifference = (a, b) => {
     if (a === b) return "No difference"
 
-    let differenceInSeconds = a - b
-    if (a < b) {
-        differenceInSeconds*= -1
-    }
+    const differenceInSeconds = Math.abs(a - b)
 
     const hours = Math.floor(differenceInSeconds / 3600)
     const minutes = Math.floor((differenceInSeconds % 3600) / 60)
     const seconds = ((differenceInSeconds % 3600) % 60)
 
+    //adding 0 before the number if needed
+    const hoursNormalized = String(hours).padStart(2, '0')
+    const minutesNormalized = String(minutes).padStart(2, '0')
+    const secondsNormalized = String(seconds).padStart(2, '0')
 
-    return `${hours > 9 ? hours : '0'+ hours}:${minutes > 9 ? minutes : '0'+ minutes}:${seconds > 9 ? seconds : '0'+ seconds}`
+    return `${hoursNormalized}:${minutesNormalized}:${secondsNormalized}`
 };
 
 

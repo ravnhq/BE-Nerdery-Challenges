@@ -33,10 +33,10 @@ Requirements:
 
 const palindromeCounter = (text, minLength) => {
     const formattedText = text.toLowerCase()
-    const words = formattedText.split(' ')
+    const wordsArray = formattedText.split(' ')
     let palindromeCounter = 0;
 
-    words.forEach((word) => {
+    wordsArray.forEach((word) => {
         let wordReversed = word.split('').reverse().join('')
 
         if (word === wordReversed && word.length >= minLength) palindromeCounter++

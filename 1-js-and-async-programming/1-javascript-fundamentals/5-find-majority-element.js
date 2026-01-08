@@ -26,11 +26,10 @@ const findMajorityElement = (arr) => {
     let result = null;
 
     for (const number of arr) {
-        
-        counterOfEachNumber[number] = counterOfEachNumber[number] ? counterOfEachNumber[number] + 1 : counterOfEachNumber[number] = 1
+        counterOfEachNumber[number] = (counterOfEachNumber[number] || 0) + 1
     }
 
-    for (let key in counterOfEachNumber) {
+    for (const key in counterOfEachNumber) {
         if (counterOfEachNumber[key] > ruleForMajority) {
             result = parseInt(key)
         }

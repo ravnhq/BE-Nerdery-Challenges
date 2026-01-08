@@ -36,7 +36,6 @@ const factorialChain = (number, lastDigits) => {
     let result
     let totalSumFactorial = 0
 
-
     for (let i = 1; i <= number; i++) {
         let currentFactorial = 1
         for (let j = 1; j <= i; j++) {
@@ -46,24 +45,13 @@ const factorialChain = (number, lastDigits) => {
         
     }
 
-    let totalSumArray
-
-    if (lastDigits > totalSumFactorial.toString().length) {
-
-        totalSumArray = String(totalSumFactorial).split('')
-
-        let howManyZeros = lastDigits - totalSumArray.length 
-
-        for (let i = 0; i < howManyZeros; i++) {
-            totalSumArray.unshift('0')
-        }
-
-        result = totalSumArray.join('')
+    const totalSumFactorialStr = totalSumFactorial.toString()
+    
+    if (lastDigits > totalSumFactorialStr.length) {
+        result = totalSumFactorialStr.padStart(lastDigits, "0")
 
     } else {
-        totalSumArray = String(totalSumFactorial).split('').slice(lastDigits * -1)
-
-        result = totalSumArray.join('')
+        result = totalSumFactorialStr.slice(-lastDigits)
     }
 
     return result
