@@ -17,6 +17,37 @@ rotateArray([1, 2, 3, 4, 5], 7); // Expected output: [3, 4, 5, 1, 2]
 
 */
 
-const rotateArray = (arr, n) => {};
+const rotateArray = (arr, n) => {
+    let result = [];
+    let length = arr.length;
+
+    if (length === 0)
+    {
+        return [];
+    }
+
+    // Maximum number of rotations is array.length
+    n = n % length;
+
+    for (let index = n; index < length; index++)
+    {
+        result.push(arr[index]);
+    }
+
+    for (let index = 0; index < n; index++)
+    {
+        result.push(arr[index]);
+    }
+
+    console.log(result[4]);
+    console.log(arr[0]);
+
+    console.log(result);
+    console.log(arr);
+
+    return result;
+};
+
+rotateArray([1, 2, 3, 4, 5], 6);
 
 module.exports = rotateArray;
