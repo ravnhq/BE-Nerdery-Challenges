@@ -1,24 +1,26 @@
 const fs = require('fs');
 
-    // Explain how to use the CLI app
-    if (!process.argv[2]) {
+// Explain how to use the CLI app
+if (!process.argv[2]) 
+{
     console.log(`
-    Wishlist Tracker CLI
+        Wishlist Tracker CLI
 
-    How to use the CLI app:
-    node wishlist.js list | This command shows the items in the list
-    node wishlist.js add "Item Name" price "Store" | This command adds an item to the list
-    node wishlist.js update id "Item Name" price "Store"
-    node wishlist.js delete id
+        How to use the CLI app:
+        node wishlist.js list | This command shows the items in the list
+        node wishlist.js add "Item Name" price "Store" | This command adds an item to the list
+        node wishlist.js update id "Item Name" price "Store"
+        node wishlist.js delete id
 
-    Examples:
-    List items | node wishlist.js list 
-    Add item | node wishlist.js add "Phone" 1000 "Siman"
-    Update item: node wishlist.js update 1 "Phone" 500 "Ishop"
-    Delete item:  node wishlist.js delete 1
+        Examples:
+        List items | node wishlist.js list 
+        Add item | node wishlist.js add "Phone" 1000 "Siman"
+        Update item: node wishlist.js update 1 "Phone" 500 "Ishop"
+        Delete item:  node wishlist.js delete 1
     `);
+    
     process.exit();
-    }
+}
 
 // Read the json file
 const data = fs.readFileSync('wishlist.json', 'utf8');

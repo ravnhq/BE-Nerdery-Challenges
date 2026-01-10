@@ -39,15 +39,7 @@ const rotateArray = (arr, n) => {
         result.push(arr[index]);
     }
 
-    console.log(result[4]);
-    console.log(arr[0]);
-
-    console.log(result);
-    console.log(arr);
-
     return result;
 };
-
-rotateArray([1, 2, 3, 4, 5], 6);
 
 module.exports = rotateArray;
