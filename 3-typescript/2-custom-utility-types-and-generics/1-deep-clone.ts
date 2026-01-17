@@ -11,4 +11,32 @@
  * - The function should not use any external libraries
  */
 
-//? implement the function  here
+// implement the function  here
+function deepClone(object: any): any
+{
+  // Base case: if it's null or not an object, return the value directly
+  if (object === null || typeof object !== "object")
+  {
+    return object;
+  }
+
+  // If it's an array, clone each element recursively
+  if (Array.isArray(object))
+  {
+    return object.map(deepClone);
+  }
+
+  // If it's an object, create a new empty object
+  const clonedObject: any = {};
+
+  // Loop through each property in the object
+  for (let key in object)
+  {
+    if (object.hasOwnProperty(key))
+    {
+      clonedObject[key] = deepClone(object[key]);
+    }
+  }
+
+  return clonedObject;
+}

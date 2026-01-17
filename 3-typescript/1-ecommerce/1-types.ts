@@ -16,17 +16,100 @@
  * - The use of interfaces and type aliases to create a clear and maintainable structure
  */
 
-// PRODUCTS JSON
-
-//! Add necessary type definitions for the products json file
-
-// CATEGORIES JSON
-
-//! Add necessary type definitions for the brands json file
-
 // BRANDS JSON
-
 //! Add necessary type definitions for the brands json file
+export type Brand = {
+    id: number | string;
+    name: string;
+    logo: string;
+    description: string;
+    foundedYear: number;
+    website: string;
+    isActive: boolean;
+    headquarters: string;
+    signature: string;
+    socialMedia: {
+        instagram: string;
+        twitter: string;
+        facebook: string;
+    }
+};
 
 // DEPARTMENTS JSON
 //! Add necessary type definitions for the departments json file
+export type Department = {
+    id: number;
+    name: string;
+    description: string;
+    isActive: boolean;
+    displayOder: number;
+    iconUrl: string;
+    bannerUrl: string;
+    metaDescription: string;
+    featuredCategories: number[];
+    slug: string;
+};
+
+// CATEGORIES JSON
+//! Add necessary type definitions for the categories json file
+type Category = {
+    id: number;
+    name: string;
+    departmentId: number;
+    description: string;
+    keywords: string;
+    isActive: boolean;
+    iconUrl: string;
+    bannerUrl: string;
+    displayOrder: number;
+    metaDescription: string;
+    filters: {
+        name: string;
+        values: string[];
+    }[];
+};
+
+// PRODUCTS JSON
+//! Add necessary type definitions for the products json file
+export type Product = {
+    id: number | string;
+    name: string;
+    departmentId: number;
+    categoryId: number;
+    brandId: number;
+    linkId: string;
+    refId: string;
+    isVisible: boolean;
+    description: string;
+    descriptionShort: string;
+    releaseDate: string;
+    keywords: string;
+    title: string;
+    isActive: boolean;
+    taxCode: string;
+    metaTagDescription: string;
+    supplierId: number;
+    showWithoutStock: boolean;
+    adWordsRemarketingCode: string;
+    lomadeeCampaignCode: string;
+    score: number;
+    price: number;
+    salePrice: number;
+    onSale: boolean;
+    colors: string[];
+    sizes: number[];
+    tags: string[];
+    images: {
+        id: number;
+        url: string;
+        alt: string;
+        isMain: boolean;
+    }[];
+    specifications: {
+        material: string;
+        weight: string;
+        cushioning: string;
+        closure: string;
+        archSupport: string;
+    };
+};

@@ -21,8 +21,27 @@
  */
 
 // Add here your solution
+type OmitByType<T, U> = {
+    [K in keyof T as T[K] extends U ? never : K]: T[K];
+};
 
 // Add here your example
+type Student = {
+    name: string;
+    major: string;
+    college: string;
+    isOnScholarship: boolean;
+};
+
+type StudentWithoutScholarship = OmitByType<Student, boolean>;
+
+const studentTest: StudentWithoutScholarship = {
+    name : "Oliver",
+    major: "Computer Science",
+    college: "Montgomery College",
+}
+
+
 
 /**
  * Exercise #2: Implement the utility type `If<C, T, F>`, which evaluates a condition `C`
@@ -39,9 +58,13 @@
  * type B = If<false, 'a', 'b'>; // expected to be 'b'
  */
 
+
+
 // Add here your solution
+type If<C extends boolean, T, F> = C extends true ? T : F;
 
 // Add here your example
+type isRainy = If<false, 'Umbrella', 'No umbrella'>;
 
 /**
  * Exercise #3: Recreate the built-in `Readonly<T>` utility type without using it.
@@ -65,9 +88,29 @@
  * todo.description = "barFoo"; // Error: cannot reassign a readonly property
  */
 
+
+
 // Add here your solution
+type CustomReadonly<T> = {
+    readonly [K in keyof T]: T[K];
+}
 
 // Add here your example
+type Employee = {
+    name : string,
+    age: number,
+    position: string;
+};
+
+const employee: CustomReadonly<Employee> = {
+    name: "Oliver",
+    age: 25,
+    position: "Backend Developer"
+}
+
+// employee.name = "Diego";         Compile-time error
+
+
 
 /**
  * Exercise #4: Recreate the built-in `ReturnType<T>` utility type without using it.
@@ -88,8 +131,16 @@
  */
 
 // Add here your solution
+type CustomReturnType<T> = T extends (...args: any[]) => infer R ? R : never;
 
 // Add here your example
+const add = (firstNumber: number, secondNumber: number) => {
+    return firstNumber + secondNumber;
+};
+
+type Result = CustomReturnType<typeof add>;  // hover over result, type Result = number
+
+
 
 /**
  * Exercise #5: Extract the type inside a wrapped type like `Promise`.
@@ -106,8 +157,13 @@
  */
 
 // Add here your solution
+type MyAwaited<T> = T extends Promise<infer U> ? U : T;
 
 // Add here your example
+type ExampleType = Promise<string>;
+type ResolvedType = MyAwaited<ExampleType>; // hover over esolvedType, type ResolvedType = string
+
+
 
 /**
  * Exercise 6: Create a utility type `RequiredByKeys<T, K>` that makes specific keys of `T` required.
@@ -131,5 +187,19 @@
  */
 
 // Add here your solution
+type RequiredByKeys<T, K extends keyof T = keyof T> = Omit<T, K> & { [P in K]-?: T[P] };
+
 
 // Add here your example
+type User = {
+  name?: string;
+  age?: number;
+  address?: string;
+};
+
+// Hovering over UserRequiredName shows:
+// type UserRequiredName = Omit<User, "name"> & { name: string }
+// This means 'name' is required, while 'age' and 'address' remain optional.
+type UserRequiredName = RequiredByKeys<User, 'name'>;
+
+type UserAllRequired = RequiredByKeys<User>;

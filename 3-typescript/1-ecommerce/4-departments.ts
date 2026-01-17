@@ -1,3 +1,6 @@
+import { readJsonFile } from "./utils/read-json.util";
+import { Product } from './1-types';
+import { Department } from './1-types';
 /**
  *  Challenge 5: Get Departments with Product Count
  *
@@ -12,9 +15,58 @@
  */
 
 async function getDepartmentsWithProductCount(
-  departments: unknown[],
-  products: unknown[],
-): Promise<unknown[]> {
-  // Implement the function logic here
-  return [];
+  departments: Department[],
+  products: Product[],
+): Promise<
+  {
+    id: number;
+    name: string;
+    productCount: number;
+    productsNames: string[];
+  }[]
+> {
+  const result = [];
+
+  for (const department of departments)
+  { 
+    const productNames: string[] = [];
+
+    // Count products for current department
+    let count = 0;
+
+    for (const product of products)
+    {
+      if (product.departmentId === department.id)
+      {
+        count++;
+        productNames.push(product.name);
+      }
+    }
+
+    result.push({
+      id: department.id,
+      name: department.name,
+      productCount: count,
+      productsNames: productNames,
+    });
+  }
+
+  return result;
 }
+
+// main()
+async function main() 
+{
+  // Read departments.json file
+  const departments = await readJsonFile<Department>('./data/departments.json');
+
+  // Read products.json file
+  const products = await readJsonFile<Product>('./data/products.json');
+
+  // Get hash table
+  let hashTable = await getDepartmentsWithProductCount(departments, products);
+
+  console.log(hashTable);
+}
+
+main();
