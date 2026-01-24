@@ -18,26 +18,16 @@ rotateArray([1, 2, 3, 4, 5], 7); // Expected output: [3, 4, 5, 1, 2]
 */
 
 const rotateArray = (arr, n) => {
-    let result = [];
-    let length = arr.length;
+    if (arr.length === 0) return [];
 
-    if (length === 0)
-    {
-        return [];
-    }
+    // Normalize n
+    n = n % arr.length;
 
-    // Maximum number of rotations is array.length
-    n = n % length;
+    // Split array at rotation point
+    const rotatedPart = arr.slice(n);
+    const wrappedPart = arr.slice(0, n);
 
-    for (let index = n; index < length; index++)
-    {
-        result.push(arr[index]);
-    }
-
-    for (let index = 0; index < n; index++)
-    {
-        result.push(arr[index]);
-    }
+    const result = rotatedPart.concat(wrappedPart);
 
     return result;
 };

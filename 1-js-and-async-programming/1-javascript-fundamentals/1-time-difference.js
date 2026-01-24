@@ -18,29 +18,27 @@ timeDifference(7200, 3400); // Expected output: "01:03:20"
 
 const timeDifference = (a, b) => {
 
-    let result = "";
-    
     // Find difference
     let difference = Math.abs(a - b);
 
     // Convert to hours
-    let timeHours = difference / 3600;
-    result = Math.trunc(timeHours) + ":";
+    let hours = Math.trunc(difference / 3600);
+    let leftover = difference - (hours * 3600);
 
     // Convert to minutes
-    let timeHoursFraction = timeHours - Math.trunc(timeHours);
-    let timeMinutes = timeHoursFraction * 60;
-    result += Math.trunc(timeMinutes) + ":";
+    let minutes = Math.trunc(leftover / 60);
 
     // Convert to seconds
-    let timeMinutesFraction = timeMinutes - Math.trunc(timeMinutes);
-    let timeSeconds = Math.round(timeMinutesFraction * 60);
-    result += Math.trunc(timeSeconds);
+    let seconds = leftover - (minutes * 60);
+
+    let time = [hours, minutes, seconds];
 
     // Format time
-    let formattedTime = result.split(":").map(p => p.padStart(2, "0")).join(":");
-    
-    return formattedTime;
-};
+    let formattedTime = time.map(unit => {
+        return String(unit).padStart(2, "0");
+    });
+
+    return formattedTime.join(":");
+}
 
 module.exports = timeDifference;
