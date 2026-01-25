@@ -25,8 +25,8 @@ async function getCountriesWithBrandsAndProductCount(
   for (const brand of brands)
   {
     // Get country from headquarters field
-    const parts = brand.headquarters.split(",");
-    const country = parts[parts.length - 1].trim();
+    const parts = brand.headquarters.split(", ");
+    const country = parts[1];
 
     // Count products for current brand
     let productCount = 0;
@@ -53,8 +53,8 @@ async function getCountriesWithBrandsAndProductCount(
   return countryCounts;
 }
 
-/*
-Testing 
+
+ 
 // main()
 async function main() 
 {
@@ -71,4 +71,3 @@ async function main()
 }
 
 main();
-*/

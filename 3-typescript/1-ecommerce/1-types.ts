@@ -18,6 +18,12 @@
 
 // BRANDS JSON
 //! Add necessary type definitions for the brands json file
+export type SocialMedia = {
+    instagram: string;
+    twitter: string;
+    facebook: string;
+};
+
 export type Brand = {
     id: number | string;
     name: string;
@@ -28,11 +34,7 @@ export type Brand = {
     isActive: boolean;
     headquarters: string;
     signature: string;
-    socialMedia: {
-        instagram: string;
-        twitter: string;
-        facebook: string;
-    }
+    socialMedia: SocialMedia;
 };
 
 // DEPARTMENTS JSON

@@ -1,6 +1,14 @@
 import { readJsonFile } from "./utils/read-json.util";
 import { Product } from './1-types';
 import { Department } from './1-types';
+
+type DepartmentWithProductCount = {
+  id: number;
+  name: string;
+  productCount: number;
+  productsNames: string[];
+};
+
 /**
  *  Challenge 5: Get Departments with Product Count
  *
@@ -14,17 +22,8 @@ import { Department } from './1-types';
  * - Add the name of the products in an array called productsNames inside the department object.
  */
 
-async function getDepartmentsWithProductCount(
-  departments: Department[],
-  products: Product[],
-): Promise<
-  {
-    id: number;
-    name: string;
-    productCount: number;
-    productsNames: string[];
-  }[]
-> {
+async function getDepartmentsWithProductCount(departments: Department[], products: Product[]): Promise<DepartmentWithProductCount[]> 
+{
   const result = [];
 
   for (const department of departments)
