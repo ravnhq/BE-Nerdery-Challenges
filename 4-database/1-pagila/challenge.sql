@@ -58,6 +58,15 @@ LIMIT 5;
 
 
 -- your query here
+SELECT DISTINCT
+    INITCAP(f.title) AS title
+FROM rental AS r
+JOIN inventory AS i
+    ON r.inventory_id = i.inventory_id
+JOIN film AS f
+    ON i.film_id = f.film_id
+WHERE r.rental_date >= CURRENT_DATE - INTERVAL '10 years'
+ORDER BY title ASC;
 
 
 /*
