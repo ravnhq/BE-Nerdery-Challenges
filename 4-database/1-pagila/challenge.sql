@@ -10,6 +10,14 @@
 
 
 -- your query here
+SELECT
+    INITCAP(c.name) AS category,
+    COUNT(fc.film_id) AS film_count
+FROM category AS c
+LEFT JOIN film_category AS fc
+    ON c.category_id = fc.category_id
+GROUP BY c.name
+ORDER BY category ASC;
 
 
  /*
