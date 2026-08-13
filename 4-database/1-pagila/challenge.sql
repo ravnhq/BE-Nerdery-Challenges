@@ -79,7 +79,16 @@ ORDER BY title ASC;
 
 
 -- your query here
-
+SELECT
+    INITCAP(f.title) AS title,
+    i.inventory_id AS inventory_id
+FROM film AS f
+JOIN inventory AS i
+    ON f.film_id = i.film_id
+LEFT JOIN rental AS r
+    ON i.inventory_id = r.inventory_id
+WHERE r.rental_id IS NULL
+ORDER BY title ASC;
 
 
 
