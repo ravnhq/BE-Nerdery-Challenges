@@ -220,6 +220,54 @@ ORDER BY cg.last_name ASC;
 */
 
 -- your work here
+CREATE MATERIALIZED VIEW revenue_by_category AS
+SELECT
+    INITCAP(c.name) AS category,
+    SUM(p.amount) AS total_revenue
+FROM category AS c
+JOIN film_category AS fc
+    ON c.category_id = fc.category_id
+JOIN film AS f
+    ON fc.film_id = f.film_id
+JOIN inventory AS i
+    ON f.film_id = i.film_id
+JOIN rental AS r
+    ON i.inventory_id = r.inventory_id
+JOIN payment AS p
+    ON r.rental_id = p.rental_id
+GROUP BY
+    c.category_id,
+    c.name;
+
+-- All categories and their total revenue
+SELECT *
+FROM revenue_by_category
+ORDER BY total_revenue DESC;
+
+-- Top 3 categories by revenue
+SELECT *
+FROM revenue_by_category
+ORDER BY total_revenue DESC
+LIMIT 3;
+
+-- Refresh the materialized view manually
+REFRESH MATERIALIZED VIEW revenue_by_category;
+
+/*
+Questions:
+
+1. When would you prefer a materialized view over a regular view?
+
+A materialized view is preferable when the query is expensive
+and the data does not need to be updated in real time, since the
+query results are stored and can be retrieved faster.
+
+2. How often should it be refreshed?
+
+It depends on how frequently the underlying data changes and how
+fresh the results need to be. It can be refreshed periodically,
+after important data updates, or before generating reports.
+*/
 
 
 
