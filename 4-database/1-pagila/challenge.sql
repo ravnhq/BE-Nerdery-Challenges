@@ -30,6 +30,19 @@ ORDER BY category ASC;
  */
 
  -- your query here
+SELECT
+    INITCAP(c.first_name) AS first_name,
+    INITCAP(c.last_name) AS last_name,
+    SUM(p.amount) AS total_spent
+FROM payment AS p
+JOIN customer AS c
+    ON p.customer_id = c.customer_id
+GROUP BY
+    c.customer_id,
+    c.first_name,
+    c.last_name
+ORDER BY total_spent DESC
+LIMIT 5;
 
 
 
