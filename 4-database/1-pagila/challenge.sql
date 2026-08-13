@@ -157,7 +157,46 @@ ORDER BY rental_span_days DESC;
 
 
 -- your query here
-
+WITH customer_genres AS (
+    SELECT 
+        c.customer_id,
+        INITCAP(c.first_name) AS first_name, 
+        INITCAP(c.last_name) AS last_name,
+        COALESCE(
+            ARRAY_AGG(DISTINCT fl.category)
+                FILTER (WHERE fl.category IS NOT NULL),
+            '{}'::text[]
+        ) AS genres
+    FROM customer AS c
+    LEFT JOIN rental AS r
+        ON c.customer_id = r.customer_id
+    LEFT JOIN inventory AS i
+        ON r.inventory_id = i.inventory_id
+    LEFT JOIN film AS f
+        ON i.film_id = f.film_id
+    LEFT JOIN film_list AS fl
+        ON f.film_id = fl.fid
+    GROUP BY
+        c.customer_id,
+        c.first_name,
+        c.last_name
+),
+film_genres AS (
+    SELECT 
+        ARRAY_AGG(DISTINCT fl.category) AS total
+    FROM film_list AS fl
+)
+SELECT
+    cg.first_name,
+    cg.last_name
+FROM customer_genres AS cg
+WHERE NOT (
+    cg.genres @> (
+        SELECT total
+        FROM film_genres
+    )
+)
+ORDER BY cg.last_name ASC;
 
 /*
     Challenge 8.
