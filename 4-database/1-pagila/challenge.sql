@@ -133,6 +133,20 @@ ORDER BY title ASC;
 */
 
 -- your query here
+SELECT 
+    INITCAP(c.first_name) AS first_name, 
+    INITCAP(c.last_name) AS last_name, 
+    MIN(r.rental_date)::date AS first_rental, 
+    MAX(r.rental_date)::date AS last_rental, 
+    EXTRACT(DAY FROM MAX(r.rental_date) - MIN(r.rental_date)) AS rental_span_days 
+FROM customer AS c 
+LEFT JOIN rental AS r 
+    ON c.customer_id = r.customer_id 
+GROUP BY 
+    c.customer_id, 
+    c.first_name, 
+    c.last_name 
+ORDER BY rental_span_days DESC;
 
 /*
     Challenge 7.
